@@ -1,25 +1,7 @@
 # Heaps and Heapsort
 
-In this project, you'll be implementing a __heap__ and __heapsort__
+In computer science, heapsort is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: like that algorithm, it divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element and moving that to the sorted region. The improvement consists of the use of a heap data structure rather than a linear-time search to find the maximum.
 
-## Heap
+Although somewhat slower in practice on most machines than a well-implemented quicksort, it has the advantage of a more favorable worst-case O(n log n) runtime. Heapsort is an in-place algorithm, but it is not a stable sort.
 
-Start by implementing `BinaryMinHeap`. Instances of `BinaryMinHeap` will use an array to store items. Define a default prc for the MinHeap property. You will be able pass in a different prc that will make it behave like a MaxHeap.
-
-Add the `::child_indices` and `::parent_index` methods. The `::child_indices` method should take in a parent index and the length of an array and return only the child indices that fall within the array. The `::parent_index` method should take in a child index and return its parent index.
-
-Once you've completed these methods, it's time to tackle `::heapify_down`. This method should take in an array, parent index, and a length. If the parent is greater than either of its two children, swap them. Continue swapping the node until it has reached the correct position (aka neither of its children are greater).
-
-Next, implement `::heapify_up`. This method will be used when adding a new element to the heap to make sure that it is in the correct position. It should take an array, a child index, and a length. Check the child against its parent, and swap the elements if the parent is greater. Continue until the node has reached the correct position.
-
-Now that you have `::heapify_up` and `::heapify_down`, it's time to write `#push`, `#peek`, `#extract`, and `#count`. What is the time complexity of each of pushing and extracting from your heap? Once you have all of your specs passing, it's time to sort!
-
-## Heapsort
-
-Let's monkey patch the `Array` class with the `#heap_sort!` method. This method should not create a new array. It should start by heapifying the array in place. Once the items have been heapified, use the `::heapify_down` method to extract items from the heap one by one, moving them past a partition in the array. Voila! Your array has been heap sorted.
-
-What is the time complexity of HeapSort? What is the space complexity?
-
-## K-largest elements
-
-Let's use our BinaryMinHeap to solve a whiteboarding-style question. Given an `array` and an integer `k`, return the k-largest elements in `O(k + (n-k)logk)` time.
+Heapsort was invented by J. W. J. Williams in 1964. This was also the birth of the heap, presented already by Williams as a useful data structure in its own right. In the same year, R. W. Floyd published an improved version that could sort an array in-place, continuing his earlier research into the treesort algorithm.
