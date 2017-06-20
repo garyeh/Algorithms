@@ -7,8 +7,20 @@
 
 # Import any files you need to
 
-
+require_relative 'graph'
+require_relative 'topological_sort'
 
 def install_order(arr)
+  values = (1..arr.flatten.max).to_a
+  vertices = values.map { |val| Vertex.new(val) }
 
+  # want dependency to be added to the package's in_edges
+  # want package to be added to the dependency's out_edges
+  arr.each do |tuple|
+    package, dependency = vertices[tuple[0] - 1], vertices[tuple[1] - 1]
+    Edge.new(dependency, package)
+  end
+
+  sorted = topological_sort(vertices)
+  sorted.map(&:value)
 end
