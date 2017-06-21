@@ -21,6 +21,5 @@ def install_order(arr)
     Edge.new(dependency, package)
   end
 
-  sorted = topological_sort(vertices)
-  sorted.map(&:value)
+  topological_sort(vertices).map(&:value)
 end

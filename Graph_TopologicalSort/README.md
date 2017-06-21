@@ -1,43 +1,9 @@
-# Graphs/Topological Sort
+# Graphs/
 
-### Vertex and Edge
+In mathematics, and more specifically in graph theory, a graph is a structure amounting to a set of objects in which some pairs of the objects are in some sense "related". The objects correspond to mathematical abstractions called vertices (also called nodes or points) and each of the related pairs of vertices is called an edge (also called an arc or line). Typically, a graph is depicted in diagrammatic form as a set of dots for the vertices, joined by lines or curves for the edges. Graphs are one of the objects of study in discrete mathematics.
 
-Start off by writing the Vertex and Edge Classes. The Vertex Class should take in an value and store in_edges and out_edges. The Edge Class should take in a from_vertex, a to_vertex, and a cost if it is weighted. It should add itself to the from_vertex and to_vertex's in and out edges respectively (accessor methods!). Its destroy method should remove it from the in and out edges and sets its from and to vertices to nil. Once you have the specs passing, move on to topological sort.
+The edges may be directed or undirected. For example, if the vertices represent people at a party, and there is an edge between two people if they shake hands, then this graph is undirected because any person A can shake hands with a person B only if B also shakes hands with A. In contrast, if any edge from a person A to a person B corresponds to A's admiring B, then this graph is directed, because admiration is not necessarily reciprocated. The former type of graph is called an undirected graph and the edges are called undirected edges while the latter type of graph is called a directed graph and the edges are called directed edges.
 
-What you've created is an Adjacency List representation of a Graph.
+#Topological Sort
 
-### Kahn's Algorithm
-
-Let's first write topological sort using Kahn's Algorithm.
-
-The idea of Kahn’s algorithm is to repeatedly remove nodes that have zero in-degree. The steps are as follows:
-
-* Determine the in-degree of each node.
-* Collect nodes with zero in-degree in a queue.
-* While the queue is not empty:
-  - Pop node `u` from queue,
-  - remove `u` from the graph (depending on your implementation, this may or may not involve the `destroy!` method; what are the complications to destroying as we loop? What is another way we can track the number of `in_edges`?),
-  - check if there is a new node with in-degree zero (among the neighbors of `u`)
-  - If yes, put that node into the queue.
-  - We maintain a list that records in which order the nodes are removed.
-* If the queue is empty:
-  - if we removed all nodes from the graph, return the list
-  - else we return an empty list that indicates that an order is not possible due to a cycle
-
-What is the time complexity of this algorithm? Make sure to analyze time complexity based on the set of vertices and edges.
-
-### Tarjan's Algorithm
-
-Next, implement topological sort using Tarjan's Algorithm.
-
-An alternative algorithm for topological sorting is based on depth-first search. The algorithm loops through each node of the graph, in an arbitrary order, initiating a depth-first search that terminates when it hits any node that has already been visited since the beginning of the topological sort or the node has no outgoing edges (i.e. a leaf node):
-
-Each node n gets prepended to the output list L only after considering all other nodes which depend on n (all descendants of n in the graph). Specifically, when the algorithm adds node n, we are guaranteed that all nodes which depend on n are already in the output list L: they were added to L either by the recursive call to visit() which ended before the call to visit n, or by a call to visit() which started even before the call to visit n.
-
-Cycle catching can be tricky, try without it first maybe.
-What is the time complexity?
-
-
-### Install order
-
-Given an Array of tuples, where `tuple[0]` represents a package id, and `tuple[1]` represents its dependency, determine the order in which the packages should be installed. Only packages that have dependencies will be listed, but all packages from `1..max_id` exist. N.B. this is how `npm` works.
+In the field of computer science, a topological sort or topological ordering of a directed graph is a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering. For instance, the vertices of the graph may represent tasks to be performed, and the edges may represent constraints that one task must be performed before another; in this application, a topological ordering is just a valid sequence for the tasks. A topological ordering is possible if and only if the graph has no directed cycles, that is, if it is a directed acyclic graph (DAG). Any DAG has at least one topological ordering, and algorithms are known for constructing a topological ordering of any DAG in linear time.

@@ -3,7 +3,7 @@ require_relative 'graph'
 # Implementing topological sort using both Khan's and Tarjan's algorithms
 
 # Kahn's Algorithm
-def topological_sort(vertices)
+def kahn_topological_sort(vertices)
   in_edge_count = {}
   zero_ins = []
 
@@ -32,29 +32,33 @@ def topological_sort(vertices)
 end
 
 # Tarjan's Algorithm
-def tarjan_topological_sort(vertices)
-  list = []
-  count = []
-  visited = Set.new
+def topological_sort(vertices)
+  order = []
+  explored = Set.new
+  temp = Set.new
+  cycle = false
 
   vertices.each do |vertex|
-    if !visited.include?(vertex)
-      dfs_visit(vertex, visited, list, count)
-    end
+    cycle = dfs!(vertex, explored, temp, order, cycle) unless explored.include?(vertex)
+    return [] if cycle
   end
 
-  list
+  order
 end
 
-def dfs_visit(vertex, visited, list, count)
-  visited << vertex
+
+def dfs!(vertex, explored, temp, order, cycle)
+  return true if temp.include?(vertex)
+  temp.add(vertex)
 
   vertex.out_edges.each do |edge|
-    to_vertex = edge.to_vertex
-    if !visited.include?(to_vertex)
-      dfs_visit(to_vertex, visited, list, count)
-    end
+    next_vertex = edge.to_vertex
+    cycle = dfs!(next_vertex, explored, temp, order, cycle) unless explored.include?(next_vertex)
+    return true if cycle
   end
 
-  list.unshift(vertex)
+  explored.add(vertex)
+  temp.delete(vertex)
+  order.unshift(vertex)
+  false
 end
