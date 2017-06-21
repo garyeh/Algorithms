@@ -5,9 +5,11 @@
 3. [Heaps / Heap sort][Project 3]
 4. [Quick sort in-place][Project 4]
 5. [Binary Search Tree][Project 5]
+6. [Graphs / Topological Sort][Project 6]
 
 [Project 1]: ./DynamicArray_RingBuffer
 [Project 2]: ./LRUCache
 [Project 3]: ./HeapSort
 [Project 4]: ./QuickSortInPlace
 [Project 5]: ./BinarySearchTree
+[Project 6]: ./Graph_TopologicalSort
